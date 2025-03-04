@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import  React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -14,11 +12,12 @@ import { ArrowLeft, Car, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { ChatInterface } from "@/components/chat-interface"
 
-// Placeholder for 3D Visualization component
+
+// Placeholder 3D Visualization component
 const ThreeDVisualization = () => {
   return (
     <div>
-      {/* Placeholder for 3D visualization */}
+      {/* Replace this with a Three.js scene if needed */}
       3D Visualization Placeholder
     </div>
   )
@@ -34,10 +33,9 @@ export default function TroubleshootPage() {
     issue: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-    // Simulate API call
     setTimeout(() => {
       setLoading(false)
       setStep(2)
@@ -65,9 +63,7 @@ export default function TroubleshootPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Describe Your Issue</CardTitle>
-                <CardDescription>
-                  Provide details about your vehicle and the problem you're experiencing
-                </CardDescription>
+                <CardDescription>Provide details about your vehicle and the problem you're experiencing</CardDescription>
               </CardHeader>
               <form onSubmit={handleSubmit}>
                 <CardContent className="space-y-6">
@@ -116,19 +112,12 @@ export default function TroubleshootPage() {
                     <Label htmlFor="issue">Describe the Issue</Label>
                     <Textarea
                       id="issue"
-                      placeholder="Describe the problem you're experiencing in detail. Include any symptoms, when it occurs, and any relevant information."
+                      placeholder="Describe the problem you're experiencing in detail."
                       className="min-h-[150px]"
                       value={vehicleInfo.issue}
                       onChange={(e) => setVehicleInfo({ ...vehicleInfo, issue: e.target.value })}
                       required
                     />
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Car className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">
-                      You can also connect your OBD-II scanner for more accurate diagnostics
-                    </span>
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -160,104 +149,17 @@ export default function TroubleshootPage() {
                   <ChatInterface vehicleInfo={vehicleInfo} />
                 </TabsContent>
 
-                <TabsContent value="repair" className="pt-6">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Step-by-Step Repair Guide</CardTitle>
-                      <CardDescription>
-                        Follow these steps to diagnose and fix the issue with your {vehicleInfo.year} {vehicleInfo.make}{" "}
-                        {vehicleInfo.model}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                            1
-                          </div>
-                          <h3 className="font-bold">Verify the Check Engine Light</h3>
-                        </div>
-                        <p className="text-muted-foreground ml-12">
-                          Confirm that the check engine light is illuminated on your dashboard. This indicates that the
-                          vehicle's onboard diagnostic system has detected an issue.
-                        </p>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                            2
-                          </div>
-                          <h3 className="font-bold">Locate the Oxygen Sensor</h3>
-                        </div>
-                        <p className="text-muted-foreground ml-12">
-                          The oxygen sensor is typically located in the exhaust manifold or exhaust pipe. Your vehicle
-                          has multiple oxygen sensors. The OBD-II scanner has indicated that the issue is with the Bank
-                          1 Sensor 1.
-                        </p>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                            3
-                          </div>
-                          <h3 className="font-bold">Inspect the Sensor and Wiring</h3>
-                        </div>
-                        <p className="text-muted-foreground ml-12">
-                          Check the oxygen sensor and its wiring for any visible damage, corrosion, or loose
-                          connections. Ensure the connector is securely attached.
-                        </p>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                            4
-                          </div>
-                          <h3 className="font-bold">Replace the Oxygen Sensor</h3>
-                        </div>
-                        <p className="text-muted-foreground ml-12">
-                          If the sensor is faulty, it will need to be replaced. Use an oxygen sensor socket or wrench to
-                          remove the old sensor. Apply anti-seize compound to the threads of the new sensor before
-                          installation.
-                        </p>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                            5
-                          </div>
-                          <h3 className="font-bold">Clear the Error Code</h3>
-                        </div>
-                        <p className="text-muted-foreground ml-12">
-                          After replacing the sensor, use an OBD-II scanner to clear the error code. This will turn off
-                          the check engine light if the issue has been resolved.
-                        </p>
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline">Print Guide</Button>
-                      <Button>Mark as Complete</Button>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
-
                 <TabsContent value="visualization" className="pt-6">
                   <Card>
                     <CardHeader>
                       <CardTitle>3D Visualization</CardTitle>
-                      <CardDescription>Interactive 3D model showing the location of the oxygen sensor</CardDescription>
+                      <CardDescription>Interactive 3D model showing the vehicle components</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="aspect-video w-full rounded-md border bg-muted flex items-center justify-center">
                         <ThreeDVisualization />
                       </div>
                     </CardContent>
-                    <CardFooter className="flex justify-end">
-                      <Button variant="outline">Toggle AR View</Button>
-                    </CardFooter>
                   </Card>
                 </TabsContent>
               </Tabs>
